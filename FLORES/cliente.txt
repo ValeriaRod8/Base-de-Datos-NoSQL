@@ -1,0 +1,31 @@
+IDCliente,Nombre,Apellidos,Nacionalidad,Provincia,correo,Direccion,Genero
+1,Ana,García,Costa Rica,San José,ana.garcia@gmail.com,100 mts al este del Parque Central,Mujer
+2,Pablo,Rodríguez,Costa Rica,Alajuela,pablo.rodriguez@gmail.com,50 mts al norte del Estadio Municipal,Hombre
+3,Laura,Martínez,Costa Rica,Heredia,laura.martinez@gmail.com,200 mts al oeste del Centro Comercial,Mujer
+4,Carlos,Hernández,Costa Rica,Cartago,carlos.hernandez@gmail.com,300 mts al sur de la Iglesia Principal,Hombre
+5,Sofía,López,Costa Rica,Guanacaste,sofia.lopez@gmail.com,150 mts al este del Parque Nacional,Mujer
+6,Juan,Ramírez,Costa Rica,Puntarenas,juan.ramirez@gmail.com,50 mts al norte del Muelle Turístico,Hombre
+7,María,Fernández,Costa Rica,Limón,maria.fernandez@gmail.com,100 mts al sur del Mercado Central,Mujer
+8,José,Torres,Costa Rica,San José,jose.torres@gmail.com,300 mts al este del Hospital Nacional,Hombre
+9,Carolina,Morales,Costa Rica,Alajuela,carolina.morales@gmail.com,200 mts al norte del Parque Recreativo,Mujer
+10,Miguel,Gutiérrez,Costa Rica,Heredia,miguel.gutierrez@gmail.com,250 mts al oeste de la Universidad Estatal,Hombre
+11,Isabel,Sánchez,Costa Rica,Cartago,isabel.sanchez@gmail.com,150 mts al este del Monumento Nacional,Mujer
+12,Luis,Rodríguez,Costa Rica,Guanacaste,luis.rodriguez@gmail.com,180 mts al sur del Aeropuerto Internacional,Hombre
+13,Marta,Chaves,Costa Rica,Puntarenas,marta.chaves@gmail.com,90 mts al oeste del Paseo de los Turistas,Mujer
+14,Andrés,Navarro,Costa Rica,Limón,andres.navarro@gmail.com,70 mts al norte del Puerto Deportivo,Hombre
+15,Rosa,Blanco,Costa Rica,San José,rosa.blanco@gmail.com,300 mts al este del Teatro Nacional,Mujer
+16,Javier,Morales,Costa Rica,Alajuela,javier.morales@gmail.com,120 mts al norte del Parque Municipal,Hombre
+17,Beatriz,Vargas,Costa Rica,Heredia,beatriz.vargas@gmail.com,180 mts al oeste del Centro de Convenciones,Mujer
+18,Diego,Rodríguez,Costa Rica,Cartago,diego.rodriguez@gmail.com,250 mts al sur de la Plaza Mayor,Hombre
+19,Elena,Rojas,Costa Rica,Guanacaste,elena.rojas@gmail.com,80 mts al este del Parque Nacional,Mujer
+20,Andrés,Méndez,Costa Rica,Puntarenas,andres.mendez@gmail.com,100 mts al norte del Paseo de los Turistas,Hombre
+21,Paula,Guzmán,Costa Rica,Limón,paula.guzman@gmail.com,150 mts al sur del Parque Central,Mujer
+22,Manuel,Morales,Costa Rica,San José,manuel.morales@gmail.com,200 mts al este del Centro Comercial,Hombre
+23,Sara,Sandoval,Costa Rica,Alajuela,sara.sandoval@gmail.com,300 mts al norte del Parque Recreativo,Mujer
+24,Alejandro,Rodríguez,Costa Rica,Heredia,alejandro.rodriguez@gmail.com,250 mts al oeste de la Universidad Estatal,Hombre
+25,Daniela,Chacón,Costa Rica,Cartago,daniela.chacon@gmail.com,180 mts al sur del Monumento Nacional,Mujer
+26,Ricardo,Campos,Costa Rica,Guanacaste,ricardo.campos@gmail.com,90 mts al oeste del Aeropuerto Internacional,Hombre
+27,Valentina,Mora,Costa Rica,Puntarenas,valentina.mora@gmail.com,70 mts al norte del Paseo de los Turistas,Mujer
+28,Andrea,Salazar,Costa Rica,Limón,andrea.salazar@gmail.com,300 mts al este del Parque Central,Hombre
+29,José,Gómez,Costa Rica,San José,jose.gomez@gmail.com,120 mts al norte del Parque Municipal,Mujer
+30,Lucía,Rojas,Costa Rica,Alajuela,lucia.rojas@gmail.com,180 mts al oeste del Centro de Convenciones,Mujer

@@ -1,0 +1,16 @@
+IdArticulo,IdTipoArticulo,_idSucursal,NombreArticulo,Descripcion,PrecioUnitario,Cantidad
+1,1,1,Ramo,Ramo de flores variadas,25.00,50
+2,2,2,Flor sola,Rosa roja,5.00,100
+3,3,3,Centro de mesa,Centro de mesa con tulipanes y velas blancas,40.00,20
+4,4,1,Decoracion,Centro de Gerberas Fucsia con globos,15.00,30
+5,5,2,Arreglo floral,Arreglo floral con liliums y claveles,30.00,15
+6,1,3,Ramo,Ramo de rosas rojas,20.00,40
+7,2,1,Flor sola,Girasol,8.00,70
+8,3,2,Centro de mesa,Centro de mesa con rosas y velas blancas,35.00,25
+9,4,3,Decoracion,Centro de Gerberas Fucsia,18.00,40
+10,5,1,Arreglo floral,Arreglo floral con tulipanes y margaritas,28.00,20
+11,1,2,Ramo,Ramo de lirios blancos,22.00,45
+12,2,3,Flor sola,Tulipán,6.00,90
+13,3,1,Centro de mesa,Centro de mesa con lirios y velas blancas,38.00,15
+14,4,2,Decoracion,Cesta de plantas variadas,20.00,35
+15,5,3,Arreglo floral,Arreglo floral con rosas y claveles,32.00,18

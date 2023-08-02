@@ -1,0 +1,6 @@
+IdProveedor,NombreProveedor,Apellidos,Provincia,Correo,Direccion,Genero,IdTipoProveedor
+1,Ana,García,San José,ana.garcia@example.com,Calle 1,Mujer,2
+2,Pablo,Rodríguez,Alajuela,pablo.rodriguez@example.com,Avenida 2,Hombre,1
+3,Laura,Martínez,Heredia,laura.martinez@example.com,Plaza 3,Mujer,3
+4,Carlos,Hernández,Cartago,carlos.hernandez@example.com,Calle 4,Hombre,1
+5,Sofía,López,Guanacaste,sofia.lopez@example.com,Calle 5,Mujer,4
