@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+from bson.objectid import ObjectId
 import pymongo
 
 #Conexion con Mongo Compas
@@ -64,7 +65,7 @@ def openWd_Articulo():
     precioArticulo = StringVar()
     cantidadArticulo = StringVar()
     _idArticulo = StringVar()
-    _idArticuloColor = StringVar()
+    
     #Diseño de los widgets en wd_Articulos
     
     #Label variable (Creacion o edicion/eliminacion)
@@ -100,7 +101,7 @@ def openWd_Articulo():
         global idArticulo
         curItem = tbl_Articulos.focus()
         tupla = tbl_Articulos.item(curItem)['values']
-        print(tupla)
+        #print(tupla)
         idArticulo = tupla[0]
         nombreArticulo.set(tupla[1])
         tipoArticulo.set(tupla[2])
@@ -108,7 +109,7 @@ def openWd_Articulo():
         descripcionArticulo.set(tupla[4])
         precioArticulo.set(tupla[5].removeprefix("$"))
         cantidadArticulo.set(tupla[6])
-        _idArticulo.set("Estas trabajando con el ID:\n\n" + (str(idArticulo)))
+        _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
         
         
 
@@ -167,7 +168,7 @@ def openWd_Articulo():
                            "PrecioUnitario":float(precioArticulo.get()), 
                            "Cantidad":int(cantidadArticulo.get())} 
                 coleccion.insert(documento)
-                limpiarCampos()
+                refrescar()
                 idArticulo = ""
         else:
             messagebox.showerror(message="Los campos no pueden estar vacios")
@@ -181,18 +182,54 @@ def openWd_Articulo():
                 descripcionArticulo.set('')
                 precioArticulo.set('')
                 cantidadArticulo.set('')
-        
 
+    
+    #Refrescar Valores y setear en modo creacion
     def refrescar():
+         global idArticulo
          limpiarCampos()
+         idArticulo = ""
+         _idArticulo.set("Estas en modo creacion!!!!")
+    
+    #Eliminar Regisrtro
+    def eliminarRegistro():
+        global idArticulo
+        global coleccion
+        if (idArticulo!=""):
+            coleccion.delete_one({'_id': ObjectId(idArticulo)})
+            mostrardatos()
+            messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idArticulo))
+            refrescar()
+        else:
+             messagebox.showerror(message='Debe seleccionar un registro')
+    #Actualizar Regisrtro
+
+    def actualizarRegistro():
+        if len(nombreArticulo.get())!=0 and len(tipoArticulo.get())!=0 and len(sucursalArticulo.get())!=0 and len(descripcionArticulo.get())!=0 and len(precioArticulo.get())!=0 and len(cantidadArticulo.get())!=0:
+            global idArticulo
+            global coleccion
+            filter = { '_id': ObjectId(idArticulo) }
+            
+            newvalues = { "$set": { "NombreArticulo": nombreArticulo.get(),
+                           "IdTipoArticulo": int(tipoArticulo.get()),
+                           "_idSucursal": int(sucursalArticulo.get()),
+                           "Descripcion" : descripcionArticulo.get(),
+                           "PrecioUnitario":float(precioArticulo.get()), 
+                           "Cantidad":int(cantidadArticulo.get())}}
+
+            coleccion.update_one(filter, newvalues)
+            mostrardatos()
+            refrescar()
+        else:
+            messagebox.showerror(message='Los campos no pueden estar vacios')
 
 
     #Ubicar la tabla en el frame
-    tbl_Articulos.place(x=656,y=99, height=827)
+    tbl_Articulos.place(x=750,y=99, height=780)
     btn_Ingresar = Button(f_Articulos,text="Ingresar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=738, width=100,height=50)
     btn_EjecutarCambios = Button(f_Articulos,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=738, width=100,height=50)
-    btn_Refrescar = Button(f_Articulos,text="Actualizar", bg ="#AAC213", font=("",15)).place(x=144,y=823, width=100,height=50)
-    btn_Eliminar = Button(f_Articulos,text="Eliminar", bg ="#F58585", font=("",15)).place(x=428,y=823, width=100,height=50)
+    btn_Refrescar = Button(f_Articulos,text="Actualizar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=823, width=100,height=50)
+    btn_Eliminar = Button(f_Articulos,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=823, width=100,height=50)
 
 
 
