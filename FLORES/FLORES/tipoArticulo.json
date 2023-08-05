@@ -1,0 +1,22 @@
+[
+ {
+  "IdTipoArticulo": 1,
+  "Articulo": "Ramo"
+ },
+ {
+  "IdTipoArticulo": 2,
+  "Articulo": "Flor sola"
+ },
+ {
+  "IdTipoArticulo": 3,
+  "Articulo": "Centro de mesa"
+ },
+ {
+  "IdTipoArticulo": 4,
+  "Articulo": "Decoracion"
+ },
+ {
+  "IdTipoArticulo": 5,
+  "Articulo": "Arreglo floral"
+ }
+]

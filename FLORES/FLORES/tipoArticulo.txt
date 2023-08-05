@@ -1,0 +1,6 @@
+IdTipoArticulo,Articulo
+1,Ramo
+2,Flor sola
+3,Centro de mesa
+4,Decoracion
+5,Arreglo floral

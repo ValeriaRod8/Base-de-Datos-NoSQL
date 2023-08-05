@@ -1,3 +1,5 @@
+from Class.Conexion import Conexion
+
 from tkinter import*
 from tkinter import ttk
 from tkinter import messagebox
