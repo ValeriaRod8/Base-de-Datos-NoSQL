@@ -48,8 +48,8 @@ def openWd_Articulo():
 
 
     f_Articulos = Frame(wd_Articulos)
-    f_Articulos.config(width = 1500, #1920
-                        heigh = 700,#1080 
+    f_Articulos.config(width = 1600, #1920
+                        heigh = 900,#1080 
                         bg ="#BCCCF3" )
 
     f_Articulos.pack(fill="both",expand="True")
@@ -77,7 +77,7 @@ def openWd_Articulo():
 
     lbl_NombreArticulo
 
-    #Labels, Text entries,  
+    #Labels and Text entries 
     lbl_NombreArticulo = Label(f_Articulos, text = "Nombre del Articulo", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
     txt_NombreArticulo = Entry(f_Articulos,font=("",15),textvariable=nombreArticulo).place(x=144,y=206, width=385,height=36)
 
@@ -95,6 +95,7 @@ def openWd_Articulo():
 
     lbl_CantidadArticulo = Label(f_Articulos, text = "Cantidad", bg ="#BCCCF3", font=("",15)).place(x=144,y=621)
     txt_CantidadArticulo = Entry(f_Articulos,font=("",15), textvariable=cantidadArticulo).place(x=144,y=651, width=385,height=36)
+
 
     #Extraer datos
     def selectItem(a):
@@ -246,5 +247,10 @@ btn = Button(menuPrincipal,
              command = openWd_Articulo)
 btn.pack(pady = 10)
 
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        menuPrincipal.destroy()
+
+menuPrincipal.protocol("WM_DELETE_WINDOW", on_closing)
 mainloop()
 
