@@ -2,19 +2,34 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 from bson.objectid import ObjectId
+from PIL import ImageTk, Image
 import pymongo
+import certifi
+import os
 
+'''
 #Conexion con Mongo Compas
 MONGO_HOST="localhost"
 MONGO_PUERTO="27017"
 MONGO_TIEMPO_FUERA=1000
 mongo_uri="mongodb://"+ MONGO_HOST+":"+ MONGO_PUERTO
 cliente=pymongo.MongoClient(mongo_uri,serverSelectionTimeoutMS=MONGO_TIEMPO_FUERA)
+'''
+
+MONGO_USERNAME = "Jarod"
+MONGO_PASSWORD = "Parche15"
+MONGO_CLUSTER = "cluster0.xcbz5rf.mongodb.net"
+MONGO_DATABASE = "Flores"
 
 
-MONGO_BASEDATOS="Floristeria"
+
+# Conectarse a MongoDB Atlas
+mongo_uri = f"mongodb+srv://{MONGO_USERNAME}:{MONGO_PASSWORD}@{MONGO_CLUSTER}/{MONGO_DATABASE}?retryWrites=true&w=majority"
+
+cliente = pymongo.MongoClient(mongo_uri, tlsCAFile=certifi.where())
+
 MONGO_COLECCION=""
-basedatos=cliente[MONGO_BASEDATOS]
+basedatos=cliente[MONGO_DATABASE]
 coleccion=""
 
 # Variables para determinar la apertura de alguna ventana
@@ -31,10 +46,12 @@ def seleccionCollecion(parColeccion):
  
 #Creacion de la ventana main
 menuPrincipal = Tk()
- 
-menuPrincipal.geometry("200x200")
+f_menuPrincipal = Frame(menuPrincipal)
+f_menuPrincipal.config(width = 1600, #1920
+                        heigh = 900,#1080 
+                        bg ="#BCCCF3" )
 
-
+f_menuPrincipal.pack(fill="both",expand="True")
 
 def openWd_Articulo():
     
@@ -49,7 +66,7 @@ def openWd_Articulo():
 
     f_Articulos = Frame(wd_Articulos)
     f_Articulos.config(width = 1600, #1920
-                        heigh = 900,#1080 
+                        heigh = 1024,#1080 
                         bg ="#BCCCF3" )
 
     f_Articulos.pack(fill="both",expand="True")
@@ -149,7 +166,7 @@ def openWd_Articulo():
                 tbl_Articulos.insert('','end',text=documento["_id"],values=(documento["_id"],documento["NombreArticulo"],documento["IdTipoArticulo"],documento["_idSucursal"],documento["Descripcion"],"$"+ str(documento["PrecioUnitario"]),documento["Cantidad"]))
             #cliente.server_info()
             #print("Conexion a Mongo exitosa")
-            cliente.close()
+            
         except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
             print("Tiempo extendido"+errorTiempo)
         except pymongo.errors.ConectionFailure as errorConexion:
@@ -168,7 +185,7 @@ def openWd_Articulo():
                            "Descripcion" : descripcionArticulo.get(),
                            "PrecioUnitario":float(precioArticulo.get()), 
                            "Cantidad":int(cantidadArticulo.get())} 
-                coleccion.insert(documento)
+                coleccion.insert_one(documento)
                 refrescar()
                 idArticulo = ""
         else:
@@ -227,30 +244,64 @@ def openWd_Articulo():
 
     #Ubicar la tabla en el frame
     tbl_Articulos.place(x=750,y=99, height=780)
-    btn_Ingresar = Button(f_Articulos,text="Ingresar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=738, width=100,height=50)
+    btn_Ingresar = Button(f_Articulos,text="Agregar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=738, width=100,height=50)
     btn_EjecutarCambios = Button(f_Articulos,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=738, width=100,height=50)
-    btn_Refrescar = Button(f_Articulos,text="Actualizar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=823, width=100,height=50)
+    btn_Refrescar = Button(f_Articulos,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=823, width=100,height=50)
     btn_Eliminar = Button(f_Articulos,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=823, width=100,height=50)
 
 
 
 # Estilo del menu principal
-label = Label(menuPrincipal,
-              text ="This is the main window")
- 
-label.pack(pady = 10)
- 
-# a button widget which will open a
-# new window on button click
-btn = Button(menuPrincipal,
-             text ="Click to open a new window",
-             command = openWd_Articulo)
-btn.pack(pady = 10)
+lbl_Floristeria = Label(f_menuPrincipal, text = "Floristeria Flores del Norte", bg ="#BCCCF3", font=("",44)).place(x=415,y=123)
+lbl_Bienvenida = Label(f_menuPrincipal, text ="Bienvenid@ "+MONGO_USERNAME, bg ="#BCCCF3", font=("",35)).place(x=550,y=202)
+
+
+
+#Obtener la ruta relativa en Windows
+def obtenerImagen(nombre, tipo):
+    script_dir = os.path.dirname(__file__) #Carpeta Actual
+    rel_path = "../Imagenes/" #Relative path
+    abs_file_path = os.path.join(script_dir, rel_path) #Concatenacion de los 2
+    current_file = nombre +"."+tipo 
+    ImagenArticulo = abs_file_path+current_file
+    return  ImagenArticulo
+
+#Cambiar tamaño de la imagen
+def cambiarTamano(ancho,altura,imagen):
+     resized_img = imagen.resize((ancho, altura), Image.LANCZOS)
+     return resized_img
+
+#Imagenes y botones
+img = Image.open(obtenerImagen("Articulo","jpg"))
+imgobj_Articulo = ImageTk.PhotoImage(cambiarTamano(157,157,img))
+btn_Articulo = Button(f_menuPrincipal, text="Articulos", image=imgobj_Articulo, compound= TOP, font=("",15), command=openWd_Articulo).place(x=183,y=297, width=232,height=232)
+
+img = Image.open(obtenerImagen("Proveedores","jpg"))
+imgobj_Proveedores = ImageTk.PhotoImage(cambiarTamano(157,157,img))
+btn_Proveedores = Button(f_menuPrincipal, text="Proveedores", image=imgobj_Proveedores, compound= TOP, font=("",15) ).place(x=604,y=321, width=232,height=232)
+
+img = Image.open(obtenerImagen("Clientes","jpg"))
+imgobj_Clientes = ImageTk.PhotoImage(cambiarTamano(157,157,img))
+btn_Clientes = Button(f_menuPrincipal, text="Clientes", image=imgobj_Clientes, compound= TOP, font=("",15)).place(x=1025,y=321, width=232,height=232)
+
+img = Image.open(obtenerImagen("Sucursales","jpg"))
+imgobj_Sucursales = ImageTk.PhotoImage(cambiarTamano(157,157,img))
+btn_Sucursales = Button(f_menuPrincipal, text="Sucursales", image=imgobj_Sucursales, compound= TOP, font=("",15)).place(x=393,y=597, width=232,height=232)
+
+img = Image.open(obtenerImagen("Facturas","png"))
+imgobj_Facturas = ImageTk.PhotoImage(cambiarTamano(157,157,img))
+btn_Facturas = Button(f_menuPrincipal, text="Facturas", image=imgobj_Facturas, compound= TOP, font=("",15)).place(x=814,y=597, width=232,height=232)
+
+
+
+
+
 
 def on_closing():
-    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+    if messagebox.askokcancel("Salir", "Deseas salir del programa?"):
         menuPrincipal.destroy()
 
 menuPrincipal.protocol("WM_DELETE_WINDOW", on_closing)
+
 mainloop()
 
