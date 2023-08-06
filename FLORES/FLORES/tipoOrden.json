@@ -1,0 +1,18 @@
+[
+ {
+  "IdTipoOrden": 1,
+  "TipoOrden": "Orden de compra"
+ },
+ {
+  "IdTipoOrden": 2,
+  "TipoOrden": "Orden de servicio"
+ },
+ {
+  "IdTipoOrden": 3,
+  "TipoOrden": "Orden de entrega"
+ },
+ {
+  "IdTipoOrden": 4,
+  "TipoOrden": "Orden de producción"
+ }
+]
