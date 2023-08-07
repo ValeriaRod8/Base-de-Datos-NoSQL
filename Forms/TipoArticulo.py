@@ -34,18 +34,9 @@ def centrar_ventana(ventana):
     y = (ventana.winfo_screenheight() // 2) - (alto // 2)
     ventana.geometry(f"{ancho}x{alto}+{x}+{y}") 
     
- # Limpiar Campos
-def limpiarCampos():
-            IdTipoArticulo.set('')
-            TipoArticulo.set('')   
+
     
-    
-    
-    
-#***************************************************************************
-#***************************************************************************
-#***************************************************************************
-#***************************************************************************
+
 #Eliminar una vez completado
 menuPrincipal = Tk()
 menuPrincipal.config(width = 1600, #1920
@@ -55,7 +46,7 @@ menuPrincipal.geometry("1600x900")
 menuPrincipal.resizable(False,False)# para que no se agrande
 menuPrincipal.after(0, lambda: centrar_ventana(menuPrincipal))
 menuPrincipal.title("Tipos de Articulo- Flores del Norte")
-menuPrincipal.iconbitmap(r'flores.ico')
+#menuPrincipal.iconbitmap(r'flores.ico')
 
 seleccionCollecion("TipoArticulo")
 
@@ -63,23 +54,24 @@ seleccionCollecion("TipoArticulo")
 
 
 #Variables de Creacion, Edicion y Eliminacion
-idArticulo = ""
+varIdTipoArticulo = ""
 
 #Variables de los text fields
 
 IdTipoArticulo = StringVar()
 TipoArticulo=StringVar()
 
-_idArticulo = StringVar()
+Estado = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
 
 #Label variable (Creacion o edicion/eliminacion)
-_idArticulo.set("Estas en modo creacion!!!!")
+Estado.set("Modo Creacion")
 
 
-lbl_NombreArticulo = Label(menuPrincipal,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
-lbl_NombreArticulo
+lbl_Modulo = Label(menuPrincipal,text="Modulo Tipo Articulo ", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+
+lbl_Estado = Label(menuPrincipal,textvariable=Estado, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
 
 #Labels and Text entries 
 lbl_NombreArticulo = Label(menuPrincipal, text = "Codigo", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
@@ -91,14 +83,14 @@ txt_TipoArticulo = Entry(menuPrincipal,font=("",15),textvariable=TipoArticulo).p
 
 #Extraer datos
 def selectItem(a):
-    global idArticulo
+    global varIdTipoArticulo
     curItem = tbl_TiposArticulos.focus()
     tupla = tbl_TiposArticulos.item(curItem)['values']
     #print(tupla)
-    idArticulo = tupla[0]
+    varIdTipoArticulo = tupla[0]
     IdTipoArticulo.set(tupla[1])
     TipoArticulo.set(tupla[2])
-    _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
+    Estado.set("Trabajando el ID:  " + (str(varIdTipoArticulo)))
     
     
 
@@ -138,35 +130,39 @@ mostrardatos()
 
 #Funcion crear registro
 def crearRegistro():    
-    global idArticulo
+    global varIdTipoArticulo
     if len(IdTipoArticulo.get())!=0 and len(TipoArticulo.get())!=0:
 
             documento={"IdTipoArticulo": int(IdTipoArticulo.get()),
                         "Articulo": TipoArticulo.get()} 
             coleccion.insert_one(documento)
             refrescar()
-            idArticulo = ""
+            varIdTipoArticulo = ""
     else:
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
 
 
+ # Limpiar Campos
+def limpiarCampos():
+            IdTipoArticulo.set('')
+            TipoArticulo.set('')   
 
 #Refrescar Valores y setear en modo creacion
 def refrescar():
-        global idArticulo
+        global varIdTipoArticulo
         limpiarCampos()
-        idArticulo = ""
-        _idArticulo.set("Estas en modo creacion!!!!")
+        varIdTipoArticulo = ""
+        Estado.set("Modo Creacion")
 
 #Eliminar Regisrtro
 def eliminarRegistro():
-    global idArticulo
+    global varIdTipoArticulo
     global coleccion
-    if (idArticulo!=""):
-        coleccion.delete_one({'_id': ObjectId(idArticulo)})
+    if (varIdTipoArticulo!=""):
+        coleccion.delete_one({'_id': ObjectId(varIdTipoArticulo)})
         mostrardatos()
-        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idArticulo))
+        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(varIdTipoArticulo))
         refrescar()
     else:
             messagebox.showerror(message='Debe seleccionar un registro')
@@ -174,12 +170,12 @@ def eliminarRegistro():
 
 def actualizarRegistro():
     if len(IdTipoArticulo.get())!=0 and len(TipoArticulo.get())!=0:
-        global idArticulo
+        global varIdTipoArticulo
         global coleccion
-        filter = { '_id': ObjectId(idArticulo) }
+        filter = { '_id': ObjectId(varIdTipoArticulo) }
         
         newvalues = { "$set": { "IdTipoArticulo": IdTipoArticulo.get(),
-                        "TipoArticulo": TipoArticulo.get()}}
+                        "Articulo": TipoArticulo.get()}}
 
         coleccion.update_one(filter, newvalues)
         mostrardatos()

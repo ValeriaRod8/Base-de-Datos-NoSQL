@@ -34,10 +34,7 @@ def centrar_ventana(ventana):
     y = (ventana.winfo_screenheight() // 2) - (alto // 2)
     ventana.geometry(f"{ancho}x{alto}+{x}+{y}") 
     
-# Limpiar Campos
-def limpiarCampos():
-            IdTipoProveedor.set('')
-            Proveedor.set('')   
+
     
     
 #***************************************************************************
@@ -53,7 +50,7 @@ fmProveedor.geometry("1600x900")
 fmProveedor.resizable(False,False)# para que no se agrande
 fmProveedor.after(0, lambda: centrar_ventana(fmProveedor))
 fmProveedor.title("Tipos de Proveedor- Flores del Norte")
-fmProveedor.iconbitmap(r'flores.ico')
+#fmProveedor.iconbitmap(r'flores.ico')
 
 seleccionCollecion("TiposProveedor")
 
@@ -61,23 +58,24 @@ seleccionCollecion("TiposProveedor")
 
 
 #Variables de Creacion, Edicion y Eliminacion
-idArticulo = ""
+varIdTipoProveedor = ""
 
 #Variables de los text fields
 
 IdTipoProveedor = StringVar()
 Proveedor=StringVar()
 
-_idArticulo = StringVar()
+Estado = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
 
 #Label variable (Creacion o edicion/eliminacion)
-_idArticulo.set("Estas en modo creacion!!!!")
+Estado.set("Modo Creacion")
 
 
-lbl_NombreArticulo = Label(fmProveedor,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
-lbl_NombreArticulo
+lbl_Modulo = Label(fmProveedor,text="Modulo Tipo Entrega ", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+
+lbl_Estado = Label(fmProveedor,textvariable=Estado, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
 
 #Labels and Text entries 
 lbl_NombreArticulo = Label(fmProveedor, text = "Codigo", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
@@ -89,14 +87,14 @@ txt_Proveedor = Entry(fmProveedor,font=("",15),textvariable=Proveedor).place(x=1
 
 #Extraer datos
 def selectItem(a):
-    global idArticulo
+    global varIdTipoProveedor
     curItem = tbl_TiposProveedor.focus()
     tupla = tbl_TiposProveedor.item(curItem)['values']
     #print(tupla)
-    idArticulo = tupla[0]
+    varIdTipoProveedor = tupla[0]
     IdTipoProveedor.set(tupla[1])
     Proveedor.set(tupla[2])
-    _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
+    Estado.set("Trabajando el ID:  " + (str(varIdTipoProveedor)))
     
 
 # Tabla
@@ -135,35 +133,38 @@ mostrardatos()
 
 #Funcion crear registro
 def crearRegistro():    
-    global idArticulo
+    global varIdTipoProveedor
     if len(IdTipoProveedor.get())!=0 and len(Proveedor.get())!=0:
 
             documento={"IdTipoProveedor": int(IdTipoProveedor.get()),
                         "Proveedor": Proveedor.get()} 
             coleccion.insert_one(documento)
             refrescar()
-            idArticulo = ""
+            varIdTipoProveedor = ""
     else:
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
 
-
+# Limpiar Campos
+def limpiarCampos():
+            IdTipoProveedor.set('')
+            Proveedor.set('')   
 
 #Refrescar Valores y setear en modo creacion
 def refrescar():
-        global idArticulo
+        global varIdTipoProveedor
         limpiarCampos()
-        idArticulo = ""
-        _idArticulo.set("Estas en modo creacion!!!!")
+        varIdTipoProveedor = ""
+        Estado.set("Modo Creacion")
 
 #Eliminar Regisrtro
 def eliminarRegistro():
-    global idArticulo
+    global varIdTipoProveedor
     global coleccion
-    if (idArticulo!=""):
-        coleccion.delete_one({'_id': ObjectId(idArticulo)})
+    if (varIdTipoProveedor!=""):
+        coleccion.delete_one({'_id': ObjectId(varIdTipoProveedor)})
         mostrardatos()
-        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idArticulo))
+        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(varIdTipoProveedor))
         refrescar()
     else:
             messagebox.showerror(message='Debe seleccionar un registro')
@@ -171,9 +172,9 @@ def eliminarRegistro():
 
 def actualizarRegistro():
     if len(IdTipoProveedor.get())!=0 and len(Proveedor.get())!=0:
-        global idArticulo
+        global varIdTipoProveedor
         global coleccion
-        filter = { '_id': ObjectId(idArticulo) }
+        filter = { '_id': ObjectId(varIdTipoProveedor) }
         
         newvalues = { "$set": { "IdTipoProveedor": IdTipoProveedor.get(),
                         "Proveedor": Proveedor.get()}}

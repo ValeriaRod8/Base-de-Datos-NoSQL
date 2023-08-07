@@ -84,7 +84,7 @@ seleccionCollecion("Sucursales")
 
 
 #Variables de Creacion, Edicion y Eliminacion
-idArticulo = ""
+idSucursal = ""
 
 #Variables de los text fields
 
@@ -94,14 +94,14 @@ Direccion = StringVar()
 Provincia=StringVar()
 
 
-_idArticulo = StringVar()
+_idSucursal = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
 
 #Label variable (Creacion o edicion/eliminacion)
-_idArticulo.set("Estas en modo creacion!!!!")
+_idSucursal.set("Estas en modo creacion!!!!")
 
-lbl_NombreArticulo = Label(frmSucursal,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+lbl_NombreArticulo = Label(frmSucursal,textvariable=_idSucursal, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 
 #Labels and Text entries 
 lbl_NombreArticulo = Label(frmSucursal 
@@ -127,16 +127,16 @@ Provincia.set('Seleccione')
 
 #Extraer datos
 def selectItem(a):
-    global idArticulo
+    global idSucursal
     curItem = tbl_Sucursal.focus()
     tupla = tbl_Sucursal.item(curItem)['values']
     #print(tupla)
-    idArticulo = tupla[0]
+    idSucursal = tupla[0]
     _idSucursal.set(tupla[1])
     Sucursal.set(tupla[2])
     Direccion.set(tupla[3])
     Provincia.set(tupla[4])
-    _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
+    _idSucursal.set("Estas trabajando con el ID:  " + (str(idSucursal)))
     
     
 
@@ -180,7 +180,7 @@ mostrardatos()
 
 #Funcion crear registro
 def crearRegistro():    
-    global idArticulo
+    global idSucursal
     if len(_idSucursal.get())!=0 and len(Sucursal.get())!=0:
 
             documento={"_idSucursal": int(_idSucursal.get()),
@@ -189,7 +189,7 @@ def crearRegistro():
                         "Provincia": Provincia.get()} 
             coleccion.insert_one(documento)
             refrescar()
-            idArticulo = ""
+            idSucursal = ""
     else:
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
@@ -198,19 +198,19 @@ def crearRegistro():
 
 #Refrescar Valores y setear en modo creacion
 def refrescar():
-        global idArticulo
+        global idSucursal
         limpiarCampos()
-        idArticulo = ""
-        _idArticulo.set("Estas en modo creacion!!!!")
+        idSucursal = ""
+        _idSucursal.set("Estas en modo creacion!!!!")
 
 #Eliminar Regisrtro
 def eliminarRegistro():
-    global idArticulo
+    global idSucursal
     global coleccion
-    if (idArticulo!=""):
-        coleccion.delete_one({'_id': ObjectId(idArticulo)})
+    if (idSucursal!=""):
+        coleccion.delete_one({'_id': ObjectId(idSucursal)})
         mostrardatos()
-        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idArticulo))
+        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idSucursal))
         refrescar()
     else:
             messagebox.showerror(message='Debe seleccionar un registro')
@@ -218,11 +218,11 @@ def eliminarRegistro():
 
 def actualizarRegistro():
     if len(_idSucursal.get())!=0 and len(Sucursal.get())!=0:
-        global idArticulo
+        global idSucursal
         global coleccion
-        filter = { '_id': ObjectId(idArticulo) }
+        filter = { '_id': ObjectId(idSucursal) }
         
-        print(idArticulo)
+        print(idSucursal)
         print(_idSucursal.get())
         print(Sucursal.get())
         print(Direccion.get())

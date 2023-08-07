@@ -53,7 +53,7 @@ frmTipoEntrega.geometry("1600x900")
 frmTipoEntrega.resizable(False,False)# para que no se agrande
 frmTipoEntrega.after(0, lambda: centrar_ventana(frmTipoEntrega))
 frmTipoEntrega.title("Tipos de TipoEntrega- Flores del Norte")
-frmTipoEntrega.iconbitmap(r'flores.ico')
+#frmTipoEntrega.iconbitmap(r'flores.ico')
 
 seleccionCollecion("TiposEntrega")
 
@@ -61,22 +61,22 @@ seleccionCollecion("TiposEntrega")
 
 
 #Variables de Creacion, Edicion y Eliminacion
-idArticulo = ""
+varIdTipoEntrega = ""
 
 #Variables de los text fields
 
 IdTipoEntrega = StringVar()
 TipoEntrega=StringVar()
 
-_idArticulo = StringVar()
+Estado = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
 
 #Label variable (Creacion o edicion/eliminacion)
-_idArticulo.set("Estas en modo creacion!!!!")
+Estado.set("Modo Creacion")
 
 
-lbl_NombreArticulo = Label(frmTipoEntrega,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+lbl_NombreArticulo = Label(frmTipoEntrega,textvariable=Estado, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 lbl_NombreArticulo
 
 #Labels and Text entries 
@@ -89,14 +89,14 @@ txt_TipoEntrega = Entry(frmTipoEntrega,font=("",15),textvariable=TipoEntrega).pl
 
 #Extraer datos
 def selectItem(a):
-    global idArticulo
+    global varIdTipoEntrega
     curItem = tbl_TipoEntrega.focus()
     tupla = tbl_TipoEntrega.item(curItem)['values']
     #print(tupla)
-    idArticulo = tupla[0]
+    varIdTipoEntrega = tupla[0]
     IdTipoEntrega.set(tupla[1])
     TipoEntrega.set(tupla[2])
-    _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
+    Estado.set("Trabjando el ID:  " + (str(varIdTipoEntrega)))
     
     
 
@@ -136,35 +136,34 @@ mostrardatos()
 
 #Funcion crear registro
 def crearRegistro():    
-    global idArticulo
+    global varIdTipoEntrega
     if len(IdTipoEntrega.get())!=0 and len(TipoEntrega.get())!=0:
 
             documento={"IdTipoEntrega": int(IdTipoEntrega.get()),
                         "TipoEntrega": TipoEntrega.get()} 
             coleccion.insert_one(documento)
             refrescar()
-            idArticulo = ""
+            varIdTipoEntrega = ""
     else:
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
 
 
-
 #Refrescar Valores y setear en modo creacion
 def refrescar():
-        global idArticulo
+        global varIdTipoEntrega
         limpiarCampos()
-        idArticulo = ""
-        _idArticulo.set("Estas en modo creacion!!!!")
+        varIdTipoEntrega = ""
+        Estado.set("Modo Creacion")
 
 #Eliminar Regisrtro
 def eliminarRegistro():
-    global idArticulo
+    global varIdTipoEntrega
     global coleccion
-    if (idArticulo!=""):
-        coleccion.delete_one({'_id': ObjectId(idArticulo)})
+    if (varIdTipoEntrega!=""):
+        coleccion.delete_one({'_id': ObjectId(varIdTipoEntrega)})
         mostrardatos()
-        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(idArticulo))
+        messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(varIdTipoEntrega))
         refrescar()
     else:
             messagebox.showerror(message='Debe seleccionar un registro')
@@ -172,9 +171,9 @@ def eliminarRegistro():
 
 def actualizarRegistro():
     if len(IdTipoEntrega.get())!=0 and len(TipoEntrega.get())!=0:
-        global idArticulo
+        global varIdTipoEntrega
         global coleccion
-        filter = { '_id': ObjectId(idArticulo) }
+        filter = { '_id': ObjectId(varIdTipoEntrega) }
         
         newvalues = { "$set": { "IdTipoEntrega": IdTipoEntrega.get(),
                         "TipoEntrega": TipoEntrega.get()}}
@@ -187,15 +186,14 @@ def actualizarRegistro():
 
 
 # Creating a photoimage object to use image
-photo = PhotoImage(file = r"add.png")
+#photo = PhotoImage(file = r"add.png")
 
 
 
 #Ubicar la tabla en el frame
 tbl_TipoEntrega.place(x=700,y=99, height=780)
+
 btn_Ingresar = Button(frmTipoEntrega,text="Agregar",command=crearRegistro,bg ="#79C397", font=("",15)).place(x=144,y=358, width=100,height=50)
-
-
 btn_EjecutarCambios = Button(frmTipoEntrega,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=358, width=100,height=50)
 btn_Refrescar = Button(frmTipoEntrega,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=423, width=100,height=50)
 btn_Eliminar = Button(frmTipoEntrega,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=423, width=100,height=50)

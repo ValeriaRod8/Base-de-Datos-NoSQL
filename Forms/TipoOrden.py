@@ -35,9 +35,7 @@ def centrar_ventana(ventana):
     ventana.geometry(f"{ancho}x{alto}+{x}+{y}") 
     
 # Limpiar Campos
-def limpiarCampos():
-            IdTipoOrden.set('')
-            TipoOrden.set('')       
+    
 #***************************************************************************
 #***************************************************************************
 #***************************************************************************
@@ -51,7 +49,7 @@ frmTipoOrden.geometry("1600x900")
 frmTipoOrden.resizable(False,False)# para que no se agrande
 frmTipoOrden.after(0, lambda: centrar_ventana(frmTipoOrden))
 frmTipoOrden.title("Tipos de Orden- Flores del Norte")
-frmTipoOrden.iconbitmap(r'flores.ico')
+#frmTipoOrden.iconbitmap(r'flores.ico')
 
 seleccionCollecion("TipoOrden")
 
@@ -64,15 +62,15 @@ idArticulo = ""
 IdTipoOrden = StringVar()
 TipoOrden=StringVar()
 
-_idArticulo = StringVar()
+Estado = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
 
 #Label variable (Creacion o edicion/eliminacion)
-_idArticulo.set("Estas en modo creacion!!!!")
+Estado.set("Modo Creacion")
 
 
-lbl_NombreArticulo = Label(frmTipoOrden,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+lbl_NombreArticulo = Label(frmTipoOrden,textvariable=Estado, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 lbl_NombreArticulo
 
 #Labels and Text entries 
@@ -92,7 +90,7 @@ def selectItem(a):
     idArticulo = tupla[0]
     IdTipoOrden.set(tupla[1])
     TipoOrden.set(tupla[2])
-    _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
+    Estado.set("Trabajando el ID:  " + (str(idArticulo)))
     
     
 
@@ -144,14 +142,17 @@ def crearRegistro():
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
 
-
+#Limpiar campos
+def limpiarCampos():
+            IdTipoOrden.set('')
+            TipoOrden.set('')   
 
 #Refrescar Valores y setear en modo creacion
 def refrescar():
         global idArticulo
         limpiarCampos()
         idArticulo = ""
-        _idArticulo.set("Estas en modo creacion!!!!")
+        Estado.set("Modo Creacion")
 
 #Eliminar Regisrtro
 def eliminarRegistro():
