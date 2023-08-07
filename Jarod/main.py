@@ -43,10 +43,20 @@ def seleccionCollecion(parColeccion):
     coleccion=basedatos[parColeccion]
 
 
- 
+#Obtener la ruta relativa en Windows
+def obtenerImagen(nombre, tipo):
+    script_dir = os.path.dirname(__file__) #Carpeta Actual
+    rel_path = "../Imagenes/" #Relative path
+    abs_file_path = os.path.join(script_dir, rel_path) #Concatenacion de los 2
+    current_file = nombre +"."+tipo 
+    ImagenArticulo = abs_file_path+current_file
+    return  ImagenArticulo
+
 #Creacion de la ventana main
 menuPrincipal = Tk()
+menuPrincipal.iconbitmap(obtenerImagen("flores","ico"))
 f_menuPrincipal = Frame(menuPrincipal)
+
 f_menuPrincipal.config(width = 1600, #1920
                         heigh = 900,#1080 
                         bg ="#BCCCF3" )
@@ -61,7 +71,7 @@ def openWd_Articulo():
 
     wd_Articulos = Toplevel(menuPrincipal)
     wd_Articulos.title('Floristeria - Articulos') #Nombre de la pagina
-    #wd_Articulos.iconbitmap('xxxx.ico') #Ver icono en ese momento ------
+    wd_Articulos.iconbitmap(obtenerImagen("flores","ico")) #Ver icono en ese momento ------
 
 
     f_Articulos = Frame(wd_Articulos)
@@ -261,7 +271,7 @@ def openWd_Proveedor():
 
 
     wd_Proveedor = Toplevel(menuPrincipal)
-    wd_Proveedor.title('Floristeria - Articulos') #Nombre de la pagina
+    wd_Proveedor.title('Floristeria - Proveedores') #Nombre de la pagina
     #wd_Articulos.iconbitmap('xxxx.ico') #Ver icono en ese momento ------
 
 
@@ -675,26 +685,48 @@ def openwd_Cliente():
     btn_EjecutarCambios = Button(f_Clientes,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428, y=799, width=100,height=50)
     btn_Refrescar = Button(f_Clientes,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=146,y=880, width=100,height=50)
     btn_Eliminar = Button(f_Clientes,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=880, width=100,height=50)
-     
+
+
+def openwd_Cliente():
+
+    #Obtener la collecion a trabjar
+    seleccionCollecion("Clientes")
+    global coleccion
+
+
+    wd_Cliente = Toplevel(menuPrincipal)
+    wd_Cliente.title('Floristeria - Clientes') #Nombre de la pagina
+    #wd_Articulos.iconbitmap('xxxx.ico') #Ver icono en ese momento ------
+
+
+    f_Clientes = Frame(wd_Cliente)
+    f_Clientes.config(width = 1600, #1920
+                        heigh = 1024,#1080 
+                        bg ="#BCCCF3" )
+
+    f_Clientes.pack(fill="both",expand="True")
+    
+        
+    idCliente = ""
+
+
+
+
 # Estilo del menu principal
 lbl_Floristeria = Label(f_menuPrincipal, text = "Floristeria Flores del Norte", bg ="#BCCCF3", font=("",44)).place(x=415,y=123)
 lbl_Bienvenida = Label(f_menuPrincipal, text ="Bienvenid@ "+MONGO_USERNAME, bg ="#BCCCF3", font=("",35)).place(x=550,y=202)
 
 
 
-#Obtener la ruta relativa en Windows
-def obtenerImagen(nombre, tipo):
-    script_dir = os.path.dirname(__file__) #Carpeta Actual
-    rel_path = "../Imagenes/" #Relative path
-    abs_file_path = os.path.join(script_dir, rel_path) #Concatenacion de los 2
-    current_file = nombre +"."+tipo 
-    ImagenArticulo = abs_file_path+current_file
-    return  ImagenArticulo
+
 
 #Cambiar tamaño de la imagen
 def cambiarTamano(ancho,altura,imagen):
      resized_img = imagen.resize((ancho, altura), Image.LANCZOS)
      return resized_img
+
+
+
 
 #Imagenes y botones
 img = Image.open(obtenerImagen("Articulo","jpg"))

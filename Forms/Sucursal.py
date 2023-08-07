@@ -4,6 +4,7 @@ from tkinter import messagebox
 from bson.objectid import ObjectId
 import pymongo
 import certifi
+import os
 #***************************************************************************
 #variables de la conexion de la base de datos 
 MONGO_USERNAME = "andreyszcr"
@@ -63,7 +64,19 @@ frmSucursal.geometry("1600x900")
 frmSucursal.resizable(False,False)# para que no se agrande
 frmSucursal.after(0, lambda: centrar_ventana(frmSucursal))
 frmSucursal.title("Tipos de Articulo- Flores del Norte")
-frmSucursal.iconbitmap(r'flores.ico')
+
+
+def obtenerImagen(nombre, tipo):
+    script_dir = os.path.dirname(__file__) #Carpeta Actual
+    rel_path = "../Imagenes/" #Relative path
+    abs_file_path = os.path.join(script_dir, rel_path) #Concatenacion de los 2
+    current_file = nombre +"."+tipo 
+    ImagenArticulo = abs_file_path+current_file
+    return  ImagenArticulo
+
+
+
+frmSucursal.iconbitmap(obtenerImagen("flores","ico"))
 
 seleccionCollecion("Sucursales")
 
