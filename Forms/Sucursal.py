@@ -209,6 +209,15 @@ def actualizarRegistro():
         global coleccion
         filter = { '_id': ObjectId(idArticulo) }
         
+        print(idArticulo)
+        print(_idSucursal.get())
+        print(Sucursal.get())
+        print(Direccion.get())
+        print(Provincia.get())
+        print(coleccion)
+        
+        
+        
         newvalues = { "$set": { "_idSucursal": _idSucursal.get(),
                         "Sucursal": Sucursal.get(),
                         "Direccion": Direccion.get(),

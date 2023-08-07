@@ -37,9 +37,7 @@ def centrar_ventana(ventana):
 # Limpiar Campos
 def limpiarCampos():
             IdTipoOrden.set('')
-            TipoOrden.set('')   
-    
-    
+            TipoOrden.set('')       
 #***************************************************************************
 #***************************************************************************
 #***************************************************************************
@@ -56,8 +54,6 @@ frmTipoOrden.title("Tipos de Orden- Flores del Norte")
 frmTipoOrden.iconbitmap(r'flores.ico')
 
 seleccionCollecion("TipoOrden")
-
-
 
 
 #Variables de Creacion, Edicion y Eliminacion

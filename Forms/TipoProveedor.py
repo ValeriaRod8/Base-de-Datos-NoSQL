@@ -98,7 +98,6 @@ def selectItem(a):
     Proveedor.set(tupla[2])
     _idArticulo.set("Estas trabajando con el ID:  " + (str(idArticulo)))
     
-    
 
 # Tabla
 tbl_ArticuloEstilo = ttk.Style()
