@@ -43,6 +43,7 @@ def seleccionCollecion(parColeccion):
     coleccion=basedatos[parColeccion]
 
 
+
 #Obtener la ruta relativa en Windows
 def obtenerImagen(nombre, tipo):
     script_dir = os.path.dirname(__file__) #Carpeta Actual
@@ -55,6 +56,7 @@ def obtenerImagen(nombre, tipo):
 #Creacion de la ventana main
 menuPrincipal = Tk()
 menuPrincipal.iconbitmap(obtenerImagen("flores","ico"))
+menuPrincipal.title('Floristeria Flores del Norte') #Nombre de la pagina
 f_menuPrincipal = Frame(menuPrincipal)
 
 f_menuPrincipal.config(width = 1600, #1920
@@ -78,7 +80,7 @@ def openWd_Articulo():
     f_Articulos.config(width = 1600, #1920
                         heigh = 1024,#1080 
                         bg ="#BCCCF3" )
-
+    f_Articulos.after(0, lambda: centrar_ventana(wd_Articulos))
     f_Articulos.pack(fill="both",expand="True")
 
     #Variables de Creacion, Edicion y Eliminacion
@@ -279,6 +281,7 @@ def openWd_Proveedor():
     f_Proveedor.config(width = 1600, #1920
                         heigh = 1024,#1080 
                         bg ="#BCCCF3" )
+    f_Proveedor.after(0, lambda: centrar_ventana(wd_Proveedor))
 
     f_Proveedor.pack(fill="both",expand="True")
     
@@ -496,7 +499,7 @@ def openwd_Cliente():
     f_Clientes.config(width = 1600, #1920
                         heigh = 1024,#1080 
                         bg ="#BCCCF3" )
-
+    f_Clientes.after(0, lambda: centrar_ventana(wd_Cliente))
     f_Clientes.pack(fill="both",expand="True")
     
         
@@ -1225,7 +1228,7 @@ def openwd_TipoOrden():
 
 
     wd_TipoOrden = Toplevel(menuPrincipal)
-    wd_TipoOrden.title('Floristeria - Tipo Articulos') #Nombre de la pagina
+    wd_TipoOrden.title('Floristeria - Tipo Orden') #Nombre de la pagina
     wd_TipoOrden.iconbitmap(obtenerImagen('flores','ico')) #Ver icono en ese momento ------
 
 
@@ -1388,7 +1391,7 @@ def openwd_TipoProveedor():
 
 
     wd_TipoProveedor = Toplevel(menuPrincipal)
-    wd_TipoProveedor.title('Floristeria - Tipo Entrega') #Nombre de la pagina
+    wd_TipoProveedor.title('Floristeria - Tipo Proveedor') #Nombre de la pagina
     wd_TipoProveedor.iconbitmap(obtenerImagen('flores','ico')) #Ver icono en ese momento ------
 
 
@@ -1418,7 +1421,7 @@ def openwd_TipoProveedor():
     Estado.set("Modo Creacion")
 
 
-    lbl_Modulo = Label(f_TipoProveedor,text="Modulo Tipo Entrega ", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+    lbl_Modulo = Label(f_TipoProveedor,text="Modulo Tipo Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 
     lbl_Estado = Label(f_TipoProveedor,textvariable=Estado, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
 
@@ -1538,7 +1541,198 @@ def openwd_TipoProveedor():
     btn_Refrescar = Button(f_TipoProveedor,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=423, width=100,height=50)
     btn_Eliminar = Button(f_TipoProveedor,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=423, width=100,height=50)
 
+def openwd_SucxProv():
 
+    wd_SucxProv = Toplevel(menuPrincipal)
+    wd_SucxProv.title('Floristeria - Sucursal x Proveedor') #Nombre de la pagina
+    wd_SucxProv.iconbitmap(obtenerImagen('flores','ico')) #Ver icono en ese momento ------
+
+
+    f_SucxProv= Frame(wd_SucxProv)
+    f_SucxProv.config(width = 1600, #1920
+                        heigh = 1024,#1080 
+                        bg ="#BCCCF3" )
+    
+    f_SucxProv.after(0, lambda: centrar_ventana(wd_SucxProv))
+    
+
+    f_SucxProv.pack(fill="both",expand="True")
+
+    def seleccionCollecion(parColeccion):
+        global coleccion
+        global basedatos
+        coleccion=basedatos[parColeccion]
+            
+    def seleccionCollecion1(parColeccion1):
+        global coleccion1
+        global basedatos
+        coleccion1=basedatos[parColeccion1]
+
+    def seleccionCollecion2(parColeccion2):
+        global coleccion2
+        global basedatos
+        coleccion2=basedatos[parColeccion2]
+
+        
+    seleccionCollecion("ProveedorXSucursal")
+    seleccionCollecion1("Sucursales")
+    seleccionCollecion2("Proveedor")
+
+
+    proveedores_data = coleccion2.find({}, {"NombreProveedor": 1})
+    # Crear una lista con los nombres de los proveedores
+    proveedores_list = [proveedor["NombreProveedor"] for proveedor in proveedores_data]
+
+
+    sucursales_data = coleccion1.find({}, {"Sucursal": 1})
+    # Crear una lista con los nombres de los proveedores
+    sucursales_data  = [sucursal["Sucursal"] for sucursal in sucursales_data]
+
+
+
+    #Variables de Creacion, Edicion y Eliminacion
+    IdSucPrv = ""
+
+    #Variables de los text fields
+
+    IdSucursalPS = StringVar()
+    IdProveedorS=StringVar()
+    _IdProveeSucur = StringVar()
+
+    #DiseÃ±o de los widgets en wd_Articulos
+
+    #Label variable (Creacion o edicion/eliminacion)
+    _IdProveeSucur.set("Modo Creacion")
+
+
+    
+    lbl_Modulo = Label(f_SucxProv,text="Modulo Tipo Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+
+    lbl_Estado = Label(f_SucxProv,textvariable=_IdProveeSucur, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
+
+    lbl_IdSucursalPS = Label(f_SucxProv, text = "Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
+    cbSucursal = ttk.Combobox(f_SucxProv,state="readonly",values=proveedores_list,font=("",15),textvariable=IdSucursalPS).place(x=144,y=206, width=385,height=36)
+    IdSucursalPS.set('Seleccione')
+
+
+    lbl_Sucursal = Label(f_SucxProv, text = "Sucursales", bg ="#BCCCF3", font=("",15)).place(x=144,y=265)
+    cbSucursal = ttk.Combobox(f_SucxProv,state="readonly",values=sucursales_data,font=("",15),textvariable=IdProveedorS).place(x=144,y=290, width=385,height=36)
+    IdProveedorS.set('Seleccione')
+
+
+
+
+    #Extraer datos
+    def selectItem(a):
+        global IdSucPrv
+        curItem = tbl_Prove_Sucur.focus()
+        tupla = tbl_Prove_Sucur.item(curItem)['values']
+        #print(tupla)
+        IdSucPrv = tupla[0]
+        IdSucursalPS.set(tupla[1])
+        IdProveedorS.set(tupla[2])
+        _IdProveeSucur.set("Estas trabajando con el ID:  " + (str(IdSucPrv)))
+        
+
+    # Tabla
+    tbl_ArticuloEstilo = ttk.Style()
+    tbl_ArticuloEstilo.theme_use('clam')
+    tbl_ArticuloEstilo.configure('tbl_Prove_Sucurview.Heading', background="#D9D9D9")
+
+    # Tabla Header
+    tbl_Prove_Sucur= ttk.Treeview(f_SucxProv, column=("c1", "c2","c3"), show= 'headings', height= 3)
+
+    tbl_Prove_Sucur.column("# 1",anchor= CENTER, width=200)
+    tbl_Prove_Sucur.heading("# 1", text= "Id ")
+    tbl_Prove_Sucur.column("# 2",anchor= CENTER, width=200)
+    tbl_Prove_Sucur.heading("# 2", text= "Provedor")
+    tbl_Prove_Sucur.column("# 3",anchor= CENTER, width=200)
+    tbl_Prove_Sucur.heading("# 3", text= "Sucursal")
+    tbl_Prove_Sucur.bind('<ButtonRelease-1>', selectItem)
+
+
+
+
+
+    #Funcion para mostrar los datos
+    def mostrardatos():
+        try:
+            registros=tbl_Prove_Sucur.get_children() 
+            for registro in registros:
+                tbl_Prove_Sucur.delete(registro)
+            for documento in coleccion.find():
+                tbl_Prove_Sucur.insert('','end',text=documento["_id"],values=(documento["_id"],documento["IdSucursal"],documento["Proveedor"]))
+            #cliente.server_info()
+            #print("Conexion a Mongo exitosa")
+            
+        except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
+            print("Tiempo extendido"+errorTiempo)
+        except pymongo.errors.ConectionFailure as errorConexion:
+            print("Fallo al conectarse a mongodb"+errorConexion) 
+
+    mostrardatos()
+
+    #Funcion crear registro
+    def crearRegistro():    
+        global IdSucPrv
+        if len(IdSucursalPS.get())!=0 and len(IdProveedorS.get())!=0:
+
+                documento={"IdSucursalPS": IdSucursalPS.get(),
+                            "Proveedor": IdProveedorS.get()} 
+                coleccion.insert_one(documento)
+                refrescar()
+                IdSucPrv = ""
+        else:
+            messagebox.showerror(message="Los campos no pueden estar vacios")
+        mostrardatos()
+
+    # Limpiar Campos
+    def limpiarCampos():
+                IdSucursalPS.set('Seleccione')
+                IdProveedorS.set('Seleccione')  
+
+    #Refrescar Valores y setear en modo creacion
+    def refrescar():
+            global IdSucPrv
+            limpiarCampos()
+            IdSucPrv = ""
+            _IdProveeSucur.set("Modo Creacion")
+
+    #Eliminar Regisrtro
+    def eliminarRegistro():
+        global IdSucPrv
+        global coleccion
+        if (IdSucPrv!=""):
+            coleccion.delete_one({'_id': ObjectId(IdSucPrv)})
+            mostrardatos()
+            messagebox.showinfo(title="Eliminado",message='Articulo con el ID:'+ str(IdSucPrv))
+            refrescar()
+        else:
+                messagebox.showerror(message='Debe seleccionar un registro')
+    #Actualizar Regisrtro
+
+    def actualizarRegistro():
+        if len(IdSucursalPS.get())!=0 and len(IdProveedorS.get())!=0:
+            global IdSucPrv
+            global coleccion
+            filter = { '_id': ObjectId(IdSucPrv) }
+            
+            newvalues = { "$set": { "IdSucursalPS": IdSucursalPS.get(),
+                            "Proveedor": IdProveedorS.get()}}
+
+            coleccion.update_one(filter, newvalues)
+            mostrardatos()
+            refrescar()
+        else:
+            messagebox.showerror(message='Los campos no pueden estar vacios')
+
+
+    #Ubicar la tabla en el frame
+    tbl_Prove_Sucur.place(x=700,y=99, height=780)
+    btn_Ingresar = Button(f_SucxProv,text="Agregar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=358, width=100,height=50)
+    btn_EjecutarCambios = Button(f_SucxProv,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=358, width=100,height=50)
+    btn_Refrescar = Button(f_SucxProv,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=423, width=100,height=50)
+    btn_Eliminar = Button(f_SucxProv,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=423, width=100,height=50)
 #-----------------------------------------------Diseño de la pagina Principal -----------------------
 
 # Estilo del menu principal
@@ -1577,7 +1771,7 @@ btn_Facturas = Button(f_menuPrincipal, text="Tipo Articulo", font=("",15), comma
 btn_Facturas = Button(f_menuPrincipal, text="Tipo Entrega", font=("",15), command=openwd_TipoEntrega ).place(x=449,y=865, width=151,height=63)
 btn_Facturas = Button(f_menuPrincipal, text="Tipo Orden", font=("",15), command=openwd_TipoOrden).place(x=644,y=865, width=151,height=63)
 btn_Facturas = Button(f_menuPrincipal, text="Tipo Proveedor", font=("",15), command=openwd_TipoProveedor).place(x=839,y=865, width=151,height=63)
-btn_Facturas = Button(f_menuPrincipal, text="Sucu. x Prove.", font=("",15), ).place(x=1034,y=865, width=151,height=63)
+btn_Facturas = Button(f_menuPrincipal, text="Sucu. x Prove.", font=("",15), command=openwd_SucxProv).place(x=1034,y=865, width=151,height=63)
 
 
 

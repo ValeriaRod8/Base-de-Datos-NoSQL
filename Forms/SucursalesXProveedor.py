@@ -45,10 +45,7 @@ def centrar_ventana(ventana):
     y = (ventana.winfo_screenheight() // 2) - (alto // 2)
     ventana.geometry(f"{ancho}x{alto}+{x}+{y}") 
     
-# Limpiar Campos
-def limpiarCampos():
-            IdSucursalPS.set('Seleccione')
-            IdProveedorS.set('Seleccione')   
+ 
     
     
     
@@ -68,7 +65,7 @@ fmProveedorS.geometry("1600x900")
 fmProveedorS.resizable(False,False)# para que no se agrande
 fmProveedorS.after(0, lambda: centrar_ventana(fmProveedorS))
 fmProveedorS.title("Tipos de Proveedor- Flores del Norte")
-fmProveedorS.iconbitmap(r'flores.ico')
+#fmProveedorS.iconbitmap(r'flores.ico')
 
 seleccionCollecion("ProveedorXSucursal")
 seleccionCollecion1("Sucursales")
@@ -156,7 +153,7 @@ def mostrardatos():
         for registro in registros:
             tbl_Prove_Sucur.delete(registro)
         for documento in coleccion.find():
-            tbl_Prove_Sucur.insert('','end',text=documento["_id"],values=(documento["_id"],documento["IdSucursalPS"],documento["Proveedor"]))
+            tbl_Prove_Sucur.insert('','end',text=documento["_id"],values=(documento["_id"],documento["IdSucursal"],documento["Proveedor"]))
         #cliente.server_info()
         #print("Conexion a Mongo exitosa")
         
@@ -181,7 +178,10 @@ def crearRegistro():
         messagebox.showerror(message="Los campos no pueden estar vacios")
     mostrardatos()
 
-
+# Limpiar Campos
+def limpiarCampos():
+            IdSucursalPS.set('Seleccione')
+            IdProveedorS.set('Seleccione')  
 
 #Refrescar Valores y setear en modo creacion
 def refrescar():
