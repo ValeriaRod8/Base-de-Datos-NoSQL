@@ -1,0 +1,18 @@
+[
+ {
+  "IdTipoEntrega": 1,
+  "TipoEntrega": "Entrega a domicilio"
+ },
+ {
+  "IdTipoEntrega": 2,
+  "TipoEntrega": "Recogida en tienda"
+ },
+ {
+  "IdTipoEntrega": 3,
+  "TipoEntrega": "Envío por correo"
+ },
+ {
+  "IdTipoEntrega": 4,
+  "TipoEntrega": "Entrega exprés"
+ }
+]

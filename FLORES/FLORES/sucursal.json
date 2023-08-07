@@ -1,0 +1,21 @@
+[
+ {
+  "_idSucursal": 1,
+  "Sucursal": "Montes de Oca",
+  "Direccion": "San Pedro 200mts este del parque central",
+  "Provincia": "San Jose",
+  "Column5": " "
+ },
+ {
+  "_idSucursal": 2,
+  "Sucursal": "La Alegria",
+  "Direccion": "La Alegria de Siquirres",
+  "Provincia": "Limon"
+ },
+ {
+  "_idSucursal": 3,
+  "Sucursal": "Coronado",
+  "Direccion": "Coronado centro",
+  "Provincia": "San Jose"
+ }
+]

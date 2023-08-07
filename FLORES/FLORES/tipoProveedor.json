@@ -1,0 +1,22 @@
+[
+ {
+  "IdTipoProveedor": 1,
+  "Proveedor": "Floristería Rosas Rojas"
+ },
+ {
+  "IdTipoProveedor": 2,
+  "Proveedor": "Plantas y Flores Fragantes"
+ },
+ {
+  "IdTipoProveedor": 3,
+  "Proveedor": "Flores Exóticas Delicadas"
+ },
+ {
+  "IdTipoProveedor": 4,
+  "Proveedor": "Ramos Primavera"
+ },
+ {
+  "IdTipoProveedor": 5,
+  "Proveedor": "Flores Elegantes y Más"
+ }
+]
