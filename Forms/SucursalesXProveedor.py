@@ -47,8 +47,8 @@ def centrar_ventana(ventana):
     
 # Limpiar Campos
 def limpiarCampos():
-            IdSucursal.set('Seleccione')
-            IdProveedor.set('Seleccione')   
+            IdSucursalPS.set('Seleccione')
+            IdProveedorS.set('Seleccione')   
     
     
     
@@ -91,8 +91,8 @@ IdSucPrv = ""
 
 #Variables de los text fields
 
-IdSucursal = StringVar()
-IdProveedor=StringVar()
+IdSucursalPS = StringVar()
+IdProveedorS=StringVar()
 _IdProveeSucur = StringVar()
 
 #DiseÃ±o de los widgets en wd_Articulos
@@ -105,14 +105,14 @@ lblSUCUR = Label(fmProveedorS,textvariable=_IdProveeSucur, bg ="#BCCCF3", font=(
 lblSUCUR
 
 
-lbl_IdSucursal = Label(fmProveedorS, text = "Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
-cbSucursal = ttk.Combobox(fmProveedorS,state="readonly",values=proveedores_list,font=("",15),textvariable=IdSucursal).place(x=144,y=206, width=385,height=36)
-IdSucursal.set('Seleccione')
+lbl_IdSucursalPS = Label(fmProveedorS, text = "Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
+cbSucursal = ttk.Combobox(fmProveedorS,state="readonly",values=proveedores_list,font=("",15),textvariable=IdSucursalPS).place(x=144,y=206, width=385,height=36)
+IdSucursalPS.set('Seleccione')
 
 
 lbl_Sucursal = Label(fmProveedorS, text = "Sucursales", bg ="#BCCCF3", font=("",15)).place(x=144,y=265)
-cbSucursal = ttk.Combobox(fmProveedorS,state="readonly",values=sucursales_data,font=("",15),textvariable=IdProveedor).place(x=144,y=290, width=385,height=36)
-IdProveedor.set('Seleccione')
+cbSucursal = ttk.Combobox(fmProveedorS,state="readonly",values=sucursales_data,font=("",15),textvariable=IdProveedorS).place(x=144,y=290, width=385,height=36)
+IdProveedorS.set('Seleccione')
 
 
 
@@ -124,8 +124,8 @@ def selectItem(a):
     tupla = tbl_Prove_Sucur.item(curItem)['values']
     #print(tupla)
     IdSucPrv = tupla[0]
-    IdSucursal.set(tupla[1])
-    IdProveedor.set(tupla[2])
+    IdSucursalPS.set(tupla[1])
+    IdProveedorS.set(tupla[2])
     _IdProveeSucur.set("Estas trabajando con el ID:  " + (str(IdSucPrv)))
     
 
@@ -156,7 +156,7 @@ def mostrardatos():
         for registro in registros:
             tbl_Prove_Sucur.delete(registro)
         for documento in coleccion.find():
-            tbl_Prove_Sucur.insert('','end',text=documento["_id"],values=(documento["_id"],documento["IdSucursal"],documento["Proveedor"]))
+            tbl_Prove_Sucur.insert('','end',text=documento["_id"],values=(documento["_id"],documento["IdSucursalPS"],documento["Proveedor"]))
         #cliente.server_info()
         #print("Conexion a Mongo exitosa")
         
@@ -170,10 +170,10 @@ mostrardatos()
 #Funcion crear registro
 def crearRegistro():    
     global IdSucPrv
-    if len(IdSucursal.get())!=0 and len(IdProveedor.get())!=0:
+    if len(IdSucursalPS.get())!=0 and len(IdProveedorS.get())!=0:
 
-            documento={"IdSucursal": IdSucursal.get(),
-                        "Proveedor": IdProveedor.get()} 
+            documento={"IdSucursalPS": IdSucursalPS.get(),
+                        "Proveedor": IdProveedorS.get()} 
             coleccion.insert_one(documento)
             refrescar()
             IdSucPrv = ""
@@ -204,13 +204,13 @@ def eliminarRegistro():
 #Actualizar Regisrtro
 
 def actualizarRegistro():
-    if len(IdSucursal.get())!=0 and len(IdProveedor.get())!=0:
+    if len(IdSucursalPS.get())!=0 and len(IdProveedorS.get())!=0:
         global IdSucPrv
         global coleccion
         filter = { '_id': ObjectId(IdSucPrv) }
         
-        newvalues = { "$set": { "IdSucursal": IdSucursal.get(),
-                        "Proveedor": IdProveedor.get()}}
+        newvalues = { "$set": { "IdSucursalPS": IdSucursalPS.get(),
+                        "Proveedor": IdProveedorS.get()}}
 
         coleccion.update_one(filter, newvalues)
         mostrardatos()
