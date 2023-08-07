@@ -1,0 +1,5 @@
+IdTipoEntrega,TipoEntrega
+1,Entrega a domicilio
+2,Recogida en tienda
+3,Envío por correo
+4,Entrega exprés

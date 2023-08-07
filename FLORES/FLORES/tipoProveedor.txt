@@ -1,0 +1,6 @@
+IdTipoProveedor,Proveedor
+1,Floristería Rosas Rojas
+2,Plantas y Flores Fragantes
+3,Flores Exóticas Delicadas
+4,Ramos Primavera
+5,Flores Elegantes y Más

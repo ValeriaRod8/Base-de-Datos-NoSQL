@@ -1,0 +1,5 @@
+IdTipoOrden,TipoOrden
+1,Orden de compra
+2,Orden de servicio
+3,Orden de entrega
+4,Orden de producción
