@@ -72,6 +72,8 @@ def openWd_Articulo():
     f_Articulos.pack(fill="both",expand="True")
 
     #Variables de Creacion, Edicion y Eliminacion
+
+    
     idArticulo = ""
 
     #Variables de los text fields
@@ -86,13 +88,14 @@ def openWd_Articulo():
     #Diseño de los widgets en wd_Articulos
     
     #Label variable (Creacion o edicion/eliminacion)
-    _idArticulo.set("Estas en modo creacion!!!!")
-    
 
-    lbl_NombreArticulo = Label(f_Articulos,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+    lbl_Modulo = Label(f_Articulos,text="Modulo de Clientes", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 
 
-    lbl_NombreArticulo
+    lbl_idArticulo = Label(f_Articulos,textvariable=_idArticulo, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
+
+    _idArticulo.set("Modo Creacion")
+
 
     #Labels and Text entries 
     lbl_NombreArticulo = Label(f_Articulos, text = "Nombre del Articulo", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
@@ -269,7 +272,6 @@ def openWd_Proveedor():
 
     f_Proveedor.pack(fill="both",expand="True")
     
-    f_Proveedor.pack(fill="both",expand="True")
 
     #Variables de Creacion, Edicion y Eliminacion
     idproveedor = ""
@@ -424,7 +426,7 @@ def openWd_Proveedor():
             global idproveedor
             limpiarCampos()
             idproveedor = ""
-            _idProveedor.set("Estas en el modulo de proveedores.")
+            _idProveedor.set("Modo Creacion")
 
     #Eliminar Regisrtro
     def eliminarRegistro():
@@ -467,6 +469,213 @@ def openWd_Proveedor():
     btn_Refrescar = Button(f_Proveedor,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=853, width=100,height=50)
     btn_Eliminar = Button(f_Proveedor,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=853, width=100,height=50)
 
+
+def openwd_Cliente():
+
+    #Obtener la collecion a trabjar
+    seleccionCollecion("Clientes")
+    global coleccion
+
+
+    wd_Cliente = Toplevel(menuPrincipal)
+    wd_Cliente.title('Floristeria - Clientes') #Nombre de la pagina
+    #wd_Articulos.iconbitmap('xxxx.ico') #Ver icono en ese momento ------
+
+
+    f_Clientes = Frame(wd_Cliente)
+    f_Clientes.config(width = 1600, #1920
+                        heigh = 1024,#1080 
+                        bg ="#BCCCF3" )
+
+    f_Clientes.pack(fill="both",expand="True")
+    
+        
+    idCliente = ""
+
+    #Variables de los text fields
+    nombreCliente = StringVar()
+    apellidosCliente = StringVar()
+    nacionalidadCliente = StringVar()
+    provinciaCliente = StringVar()
+    correoCliente = StringVar()
+    direccionCliente = StringVar()
+    generoCliente = StringVar()
+
+    #Diseño de los widgets en wd_Clientes
+    IdCliente = StringVar()
+
+    #Label variable (Creacion o edicion/eliminacion)
+    lbl_Modulo = Label(f_Clientes,text="Modulo de Clientes", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+
+    IdCliente.set("Modo Creacion")
+
+
+    lbl_nombreCliente = Label(f_Clientes,textvariable=IdCliente, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
+
+
+    #Labels and Text entries 
+    lbl_nombreCliente = Label(f_Clientes, text = "Nombre del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
+    txt_nombreCliente = Entry(f_Clientes,font=("",15),textvariable=nombreCliente).place(x=144,y=201, width=385,height=36)
+
+    lbl_apellidosCliente = Label(f_Clientes, text = "Apellidos del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=265)
+    txt_apellidosCliente = Entry(f_Clientes,font=("",15),textvariable=apellidosCliente).place(x=144,y=290, width=385,height=36)
+
+    lbl_nacionalidadCliente = Label(f_Clientes, text = "Nacionalidad del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=354)
+    txt_nacionalidadCliente = Entry(f_Clientes,font=("",15),textvariable=nacionalidadCliente).place(x=144,y=379, width=385,height=36)
+
+    lbl_provinciaCliente = Label(f_Clientes, text = "Provincia del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=443)
+    txt_provinciaCliente = Entry(f_Clientes,font=("",15), textvariable=provinciaCliente).place(x=144,y=468, width=385,height=36)
+
+    lbl_correoCliente = Label(f_Clientes, text = "Correo del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=532)
+    txt_correoCliente = Entry(f_Clientes,font=("",15), textvariable=correoCliente).place(x=144,y=557, width=385,height=36)
+
+    lbl_direccionCliente = Label(f_Clientes, text = "Direccion del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=621)
+    txt_direccionCliente = Entry(f_Clientes,font=("",15), textvariable=direccionCliente).place(x=144,y=646, width=385,height=36)
+
+    bl_generoCliente = Label(f_Clientes, text = "Genero del Cliente", bg ="#BCCCF3", font=("",15)).place(x=144,y=710)
+    txt_generoCliente = Entry(f_Clientes,font=("",15), textvariable=generoCliente).place(x=144,y=735, width=385,height=36)
+
+
+
+    #Extraer datos
+    def selectItem(a):
+        global idCliente
+        curItem = tbl_cliente.focus()
+        tupla = tbl_cliente.item(curItem)['values']
+        #print(tupla)
+        idCliente = tupla[0]
+        nombreCliente.set(tupla[1])
+        apellidosCliente.set(tupla[2])
+        nacionalidadCliente.set(tupla[3])
+        provinciaCliente.set(tupla[4])
+        correoCliente.set(tupla[5])
+        direccionCliente.set(tupla[6])
+        generoCliente.set(tupla[7])
+        IdCliente.set("Trabajando el ID:  " + (str(idCliente)))
+        
+        
+
+    # Tabla
+    tbl_ClienteEstilo = ttk.Style()
+    tbl_ClienteEstilo.theme_use('clam')
+    tbl_ClienteEstilo.configure('tbl_clienteview.Heading', background="#D9D9D9")
+
+    # Tabla Header
+    tbl_cliente= ttk.Treeview(f_Clientes, column=("c1", "c2","c3","c4","c5","c6","c7","c8"), show= 'headings', height= 8)
+
+    tbl_cliente.column("# 1",anchor= CENTER, width=100)
+    tbl_cliente.heading("# 1", text= "Id Cliente")
+    tbl_cliente.column("# 2",anchor= CENTER)
+    tbl_cliente.heading("# 2", text= "Nombre")
+    tbl_cliente.column("# 3", anchor= CENTER, width=70)
+    tbl_cliente.heading("# 3", text= "Apellidos")
+    tbl_cliente.column("# 4",anchor=CENTER, width=70)
+    tbl_cliente.heading("# 4", text= "Nacionalidad")
+    tbl_cliente.column("# 5",anchor=CENTER)
+    tbl_cliente.heading("# 5", text= "Provincia")
+    tbl_cliente.column("# 6",anchor=CENTER, width=30)
+    tbl_cliente.heading("# 6", text= "Correo")
+    tbl_cliente.column("# 7",anchor=CENTER, width=70)
+    tbl_cliente.heading("# 7", text= "Direccion")
+    tbl_cliente.column("# 8",anchor=CENTER, width=70)
+    tbl_cliente.heading("# 8", text= "Genero")
+
+    tbl_cliente.bind('<ButtonRelease-1>', selectItem)
+
+    #Funcion para mostrar los datos
+    def mostrardatos():
+        try:
+            registros=tbl_cliente.get_children()
+            for registro in registros:
+                tbl_cliente.delete(registro)
+            for documento in coleccion.find():
+                tbl_cliente.insert('','end',text=documento["_id"],values=(documento["_id"], documento["Nombre"] ,documento["Apellidos"],documento["Nacionalidad"],documento["Provincia"],documento["correo"],documento["Direccion"],documento["Genero"]))
+            #cliente.server_info()
+            #print("Conexion a Mongo exitosa")
+            
+        except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
+            print("Tiempo extendido"+errorTiempo)
+        except pymongo.errors.ConectionFailure as errorConexion:
+            print("Fallo al conectarse a mongodb"+errorConexion) 
+
+    mostrardatos()
+
+    #Funcion crear registro
+    def crearRegistro():
+        global idCliente
+        if len(nombreCliente.get())!=0 and len(apellidosCliente.get())!=0 and len(nacionalidadCliente.get())!=0 and len(provinciaCliente.get())!=0 and len(correoCliente.get())!=0 and len(direccionCliente.get())!=0 and len(generoCliente.get())!=0:
+                documento={"Nombre": nombreCliente.get(),
+                            "Apellidos": apellidosCliente.get(),
+                            "Nacionalidad": nacionalidadCliente.get(),
+                            "Provincia" : provinciaCliente.get(),
+                            "correo": correoCliente.get(), 
+                            "Direccion": direccionCliente.get(),
+                            "Genero": generoCliente.get(),} 
+                coleccion.insert_one(documento)
+                refrescar()
+                idCliente = ""
+        else:
+            messagebox.showerror(message="Los campos no pueden estar vacios")
+        mostrardatos()
+
+    # Limpiar Campos
+    def limpiarCampos():
+                nombreCliente.set('')
+                apellidosCliente.set('')
+                nacionalidadCliente.set('')
+                provinciaCliente.set('')
+                correoCliente.set('')
+                direccionCliente.set('')
+                generoCliente.set('')
+
+    #Refrescar Valores y setear en modo creacion
+    def refrescar():
+            global idCliente
+            limpiarCampos()
+            idCliente = ""
+            IdCliente.set("Modo Creacion")
+
+    #Eliminar Regisrtro
+    def eliminarRegistro():
+        global idCliente
+        global coleccion
+        if (idCliente!=""):
+            coleccion.delete_one({'_id': ObjectId(idCliente)})
+            mostrardatos()
+            messagebox.showinfo(title="Eliminado",message='Cliente con el ID:'+ str(idCliente))
+            refrescar()
+        else:
+                messagebox.showerror(message='Debe seleccionar un registro')
+    #Actualizar Regisrtro
+
+    def actualizarRegistro():
+        if len(nombreCliente.get())!=0 and len(apellidosCliente.get())!=0 and len(nacionalidadCliente.get())!=0 and len(provinciaCliente.get())!=0 and len(correoCliente.get())!=0 and len(direccionCliente.get())!=0 and len(generoCliente.get())!=0:
+            global idCliente
+            global coleccion
+            filter = { '_id': ObjectId(idCliente) }
+            
+            newvalues = { "$set": { "NombreCliente": nombreCliente.get(),
+                            "ApellidosCliente": apellidosCliente.get(),
+                            "NacionalidadCliente": nacionalidadCliente.get(),
+                            "ProvinciaCliente" : provinciaCliente.get(),
+                            "CorreoCliente": correoCliente.get(), 
+                            "Direccion": direccionCliente.get(),
+                            "GeneroCliente": generoCliente.get()}}
+
+            coleccion.update_one(filter, newvalues)
+            mostrardatos()
+            refrescar()
+        else:
+            messagebox.showerror(message='Los campos no pueden estar vacios')
+
+
+    #Ubicar la tabla en el frame
+    tbl_cliente.place(x=750,y=99, height=780)
+    btn_Ingresar = Button(f_Clientes,text="Agregar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=146,y=799, width=100,height=50)
+    btn_EjecutarCambios = Button(f_Clientes,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428, y=799, width=100,height=50)
+    btn_Refrescar = Button(f_Clientes,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=146,y=880, width=100,height=50)
+    btn_Eliminar = Button(f_Clientes,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=880, width=100,height=50)
+     
 # Estilo del menu principal
 lbl_Floristeria = Label(f_menuPrincipal, text = "Floristeria Flores del Norte", bg ="#BCCCF3", font=("",44)).place(x=415,y=123)
 lbl_Bienvenida = Label(f_menuPrincipal, text ="Bienvenid@ "+MONGO_USERNAME, bg ="#BCCCF3", font=("",35)).place(x=550,y=202)
@@ -498,7 +707,7 @@ btn_Proveedores = Button(f_menuPrincipal, text="Proveedores", image=imgobj_Prove
 
 img = Image.open(obtenerImagen("Clientes","jpg"))
 imgobj_Clientes = ImageTk.PhotoImage(cambiarTamano(157,157,img))
-btn_Clientes = Button(f_menuPrincipal, text="Clientes", image=imgobj_Clientes, compound= TOP, font=("",15)).place(x=1025,y=321, width=232,height=232)
+btn_Clientes = Button(f_menuPrincipal, text="Clientes", image=imgobj_Clientes, compound= TOP, font=("",15), command=openwd_Cliente).place(x=1025,y=321, width=232,height=232)
 
 img = Image.open(obtenerImagen("Sucursales","jpg"))
 imgobj_Sucursales = ImageTk.PhotoImage(cambiarTamano(157,157,img))

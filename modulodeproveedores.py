@@ -28,16 +28,16 @@ def seleccionCollecion(parColeccion):
     coleccion=basedatos[parColeccion]
 
 #Eliminar una vez completado
-menuPrincipal = Tk()
-menuPrincipal.config(width = 1600, #1920
+f_Clientes = Tk()
+f_Clientes.config(width = 1600, #1920
                     heigh = 900,#1080 
                     bg ="#BCCCF3" )
-menuPrincipal.geometry("1600x900")
+f_Clientes.geometry("1600x900")
 
 seleccionCollecion("Proveedor")
 
 '''
-wd_Articulos = Toplevel(menuPrincipal)
+wd_Articulos = Toplevel(f_Clientes)
 wd_Articulos.title('Floristeria - Articulos') #Nombre de la pagina
 #wd_Articulos.iconbitmap('xxxx.ico') #Ver icono en ese momento ------
 
@@ -70,34 +70,34 @@ _idProveedor = StringVar()
 
 #Label variable (Creacion o edicion/eliminacion)
 
-lbl_Modulo = Label(menuPrincipal,text="Modulo de Proveedores", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
+lbl_Modulo = Label(f_Clientes,text="Modulo de Proveedores", bg ="#BCCCF3", font=("",15)).place(x=144,y=75)
 
 _idProveedor.set("Modo Creacion")
 
 
-lbl_NombreProveedor = Label(menuPrincipal,textvariable=_idProveedor, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
+lbl_NombreProveedor = Label(f_Clientes,textvariable=_idProveedor, bg ="#BCCCF3", font=("",15)).place(x=144,y=120)
 
 #Labels and Text entries 
-lbl_NombreProveedor = Label(menuPrincipal, text = "Nombre del Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
-txt_NombreProveedor = Entry(menuPrincipal,font=("",15),textvariable=NombreProveedor).place(x=144,y=206, width=385,height=36)
+lbl_NombreProveedor = Label(f_Clientes, text = "Nombre del Proveedor", bg ="#BCCCF3", font=("",15)).place(x=144,y=176)
+txt_NombreProveedor = Entry(f_Clientes,font=("",15),textvariable=NombreProveedor).place(x=144,y=206, width=385,height=36)
 
-lbl_Apellidos = Label(menuPrincipal, text = "Apellidos", bg ="#BCCCF3", font=("",15)).place(x=144,y=265)
-txt_Apellidos = Entry(menuPrincipal,font=("",15),textvariable= Apellidos).place(x=144,y=290, width=385,height=36)
+lbl_Apellidos = Label(f_Clientes, text = "Apellidos", bg ="#BCCCF3", font=("",15)).place(x=144,y=265)
+txt_Apellidos = Entry(f_Clientes,font=("",15),textvariable= Apellidos).place(x=144,y=290, width=385,height=36)
 
-lbl_Provincia = Label(menuPrincipal, text = "Provincia", bg ="#BCCCF3", font=("",15)).place(x=144,y=354)
-txt_Provincia = Entry(menuPrincipal,font=("",15),textvariable=Provincia).place(x=144,y=379, width=385,height=36)
+lbl_Provincia = Label(f_Clientes, text = "Provincia", bg ="#BCCCF3", font=("",15)).place(x=144,y=354)
+txt_Provincia = Entry(f_Clientes,font=("",15),textvariable=Provincia).place(x=144,y=379, width=385,height=36)
 
-lbl_Correo = Label(menuPrincipal, text = "Correo", bg ="#BCCCF3", font=("",15)).place(x=144,y= 443)
-txt_Correo  = Entry(menuPrincipal,font=("",15), textvariable=Correo).place(x=144,y=473,width=385,height=36)
+lbl_Correo = Label(f_Clientes, text = "Correo", bg ="#BCCCF3", font=("",15)).place(x=144,y= 443)
+txt_Correo  = Entry(f_Clientes,font=("",15), textvariable=Correo).place(x=144,y=473,width=385,height=36)
 
-lbl_Direccion = Label(menuPrincipal, text = "Direccion", bg ="#BCCCF3", font=("",15)).place(x=144,y=532)
-txt_Direccion = Entry(menuPrincipal,font=("",15), textvariable=Direccion ).place(x=144,y=562, width=385,height=36)
+lbl_Direccion = Label(f_Clientes, text = "Direccion", bg ="#BCCCF3", font=("",15)).place(x=144,y=532)
+txt_Direccion = Entry(f_Clientes,font=("",15), textvariable=Direccion ).place(x=144,y=562, width=385,height=36)
 
-lbl_Genero = Label(menuPrincipal, text = "Genero", bg ="#BCCCF3", font=("",15)).place(x=144,y=621)
-txt_Genero = Entry(menuPrincipal,font=("",15), textvariable=genero).place(x=144,y=651, width=385,height=36)
+lbl_Genero = Label(f_Clientes, text = "Genero", bg ="#BCCCF3", font=("",15)).place(x=144,y=621)
+txt_Genero = Entry(f_Clientes,font=("",15), textvariable=genero).place(x=144,y=651, width=385,height=36)
 
-lbl_tipoProveedor = Label(menuPrincipal, text = "Id Tipo Prove.", bg ="#BCCCF3", font=("",15)).place(x=144,y=710)
-txt_tipoProveedor = Entry(menuPrincipal,font=("",15), textvariable=IdTipoProveedor).place(x=144,y=740, width=385,height=36)
+lbl_tipoProveedor = Label(f_Clientes, text = "Id Tipo Prove.", bg ="#BCCCF3", font=("",15)).place(x=144,y=710)
+txt_tipoProveedor = Entry(f_Clientes,font=("",15), textvariable=IdTipoProveedor).place(x=144,y=740, width=385,height=36)
 
 
 
@@ -126,7 +126,7 @@ tbl_ProveedoresEstilo.theme_use('clam')
 tbl_ProveedoresEstilo.configure('tbl_Proveedoresview.Heading', background="#D9D9D9")
 
 # Tabla Header
-tbl_Proveedores= ttk.Treeview(menuPrincipal, column=("c1", "c2","c3","c4","c5","c6","c7","c8"), show= 'headings', height= 8)
+tbl_Proveedores= ttk.Treeview(f_Clientes, column=("c1", "c2","c3","c4","c5","c6","c7","c8"), show= 'headings', height= 8)
 
 tbl_Proveedores.column("# 1",anchor= CENTER, width=100)
 tbl_Proveedores.heading("# 1", text= "Id Proveedor")
@@ -241,9 +241,9 @@ def actualizarRegistro():
 
 #Ubicar la tabla en el frame
 tbl_Proveedores.place(x=750,y=99, height=780)
-btn_Ingresar = Button(menuPrincipal,text="Agregar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=798, width=100,height=50)
-btn_EjecutarCambios = Button(menuPrincipal,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=798, width=100,height=50)
-btn_Refrescar = Button(menuPrincipal,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=853, width=100,height=50)
-btn_Eliminar = Button(menuPrincipal,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=853, width=100,height=50)
+btn_Ingresar = Button(f_Clientes,text="Agregar", command=crearRegistro, bg ="#79C397", font=("",15)).place(x=144,y=798, width=100,height=50)
+btn_EjecutarCambios = Button(f_Clientes,text="Refrescar",command=refrescar, bg ="#7CA3EF", font=("",15)).place(x=428,y=798, width=100,height=50)
+btn_Refrescar = Button(f_Clientes,text="Editar", command=actualizarRegistro, bg ="#AAC213", font=("",15)).place(x=144,y=853, width=100,height=50)
+btn_Eliminar = Button(f_Clientes,text="Eliminar", command = eliminarRegistro, bg ="#F58585", font=("",15)).place(x=428,y=853, width=100,height=50)
 
 mainloop()
